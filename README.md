@@ -41,7 +41,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Analyze image efficiency
-        uses: 4bdu1/dive-action@v0.1.0
+        uses: 4bdu1/dive-action@v0.2.0
         with:
           image: 'ghcr.io/github-username/some-image:latest'
           config: ${{ github.workspace }}/.dive-ci
@@ -69,7 +69,7 @@ git tag -a -m "..." vX.Y.Z
 git push --follow-tags
 ```
 
-[release]: https://github.com/MartinHeinz/dive-action/releases/latest
-[release-badge]: https://img.shields.io/github/release/MartinHeinz/dive-action.svg?logo=github&color=green
-[marketplace]: https://github.com/marketplace/actions/dive-container-image-analysis
-[marketplace-badge]: https://img.shields.io/badge/marketplace-dive--container--image--analysis-green?logo=github
+[release]: https://github.com/4bdu1/dive-action/releases/latest
+[release-badge]: https://img.shields.io/github/release/4bdu1/dive-action.svg?logo=github&color=green
+[marketplace]: https://github.com/marketplace/actions/dive-container-image-analysis-action
+[marketplace-badge]: https://img.shields.io/badge/marketplace-dive--container--image--analysis--action-green?logo=github
