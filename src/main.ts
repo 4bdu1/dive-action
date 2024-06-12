@@ -35,13 +35,14 @@ async function run(): Promise<void> {
         const image = core.getInput('image');
         const config = core.getInput('config');
         const exitZero = core.getInput('exit-zero');
+        const tag = core.getInput('dive-tag') || 'latest';
 
         if (config && !fs.existsSync(config)) {
             core.setFailed(`Dive configuration file ${config} doesn't exist!`);
             return
         }
 
-        const dive = 'wagoodman/dive:v0.9.2';
+        const dive = `wagoodman/dive:${tag}`;
 
         const runOptions = [
           '-e',

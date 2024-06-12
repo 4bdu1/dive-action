@@ -17,6 +17,10 @@ inputs:
     description: "Path to dive config file"
     required: false
     default: ${{ github.workspace }}/.dive-ci
+  dive-tag:
+    description: 'Tag of the wagoodman/dive image to use'
+    required: false
+    default: 'latest'
 outputs:
   efficiency:
     description: 'Efficiency of the image'
@@ -25,5 +29,5 @@ outputs:
   user-wasted-percent:
     description: 'Percentage of space waster'
 runs:
-  using: 'node16'
+  using: 'node12'
   main: 'dist/index.js'

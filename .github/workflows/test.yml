@@ -15,3 +15,4 @@ jobs:
           image: 'node:alpine'
           config: ${{ github.workspace }}/.dive-ci
           exit-zero: "false"
+          dive-tag: "v0.12"

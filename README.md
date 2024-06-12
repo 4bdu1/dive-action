@@ -14,6 +14,9 @@ Analyze container image efficiency using [Dive](https://github.com/wagoodman/div
 | image      | String | true     |                                     | Container image to analyze                                                   |
 | config     | String | false    | `${{ github.workspace }}/.dive-ci`  | Path to [dive config file](https://github.com/wagoodman/dive#ci-integration) |
 | exit-zero  | String | false    | `false`                             | Whether to force exit with zero even when scan fails ("true"/"false")        |
+| dive-tag  | String | false    | `latest`                             | Image tag of wagoodman/dive image to use. eg `v0.12`       |
+
+
 
 ### Outputs
 
@@ -38,10 +41,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Analyze image efficiency
-        uses: MartinHeinz/dive-action@v0.1.0
+        uses: 4bdu1/dive-action@v0.1.0
         with:
           image: 'ghcr.io/github-username/some-image:latest'
           config: ${{ github.workspace }}/.dive-ci
+          dive-tag: v0.12
 ```
 
 ## Development
