@@ -1,7 +1,7 @@
 # https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
-name: 'Dive - Container Image Analysis'
+name: 'Dive Container Image Analysis Action'
 description: "Run Dive to analyze the container image efficiency"
-author: "@martinheinz"
+author: "@4bdu1"
 branding:
   icon: "check-circle"
   color: "green"
