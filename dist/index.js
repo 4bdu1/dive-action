@@ -1,7 +1,7 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 561:
+/***/ 363:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -42,8 +42,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const core = __importStar(__nccwpck_require__(810));
-const exec = __importStar(__nccwpck_require__(235));
+const core = __importStar(__nccwpck_require__(969));
+const exec = __importStar(__nccwpck_require__(416));
 const fs_1 = __importDefault(__nccwpck_require__(147));
 function extract(output) {
     let efficiency = 0;
@@ -72,14 +72,12 @@ function run() {
             const image = core.getInput('image');
             const config = core.getInput('config');
             const exitZero = core.getInput('exit-zero');
-            // const image = "node:alpine";  // TODO Revert
-            // const config = ".dive-ci";  // TODO Revert
-            // const exitZero = "true";  // TODO Revert
+            const tag = core.getInput('dive-tag') || 'latest';
             if (config && !fs_1.default.existsSync(config)) {
                 core.setFailed(`Dive configuration file ${config} doesn't exist!`);
                 return;
             }
-            const dive = 'wagoodman/dive:v0.9.2';
+            const dive = `wagoodman/dive:${tag}`;
             const runOptions = [
                 '-e',
                 'CI=true',
@@ -134,7 +132,7 @@ run();
 
 /***/ }),
 
-/***/ 649:
+/***/ 585:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -161,7 +159,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.issue = exports.issueCommand = void 0;
 const os = __importStar(__nccwpck_require__(37));
-const utils_1 = __nccwpck_require__(69);
+const utils_1 = __nccwpck_require__(720);
 /**
  * Commands
  *
@@ -233,7 +231,7 @@ function escapeProperty(s) {
 
 /***/ }),
 
-/***/ 810:
+/***/ 969:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -268,12 +266,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getIDToken = exports.getState = exports.saveState = exports.group = exports.endGroup = exports.startGroup = exports.info = exports.notice = exports.warning = exports.error = exports.debug = exports.isDebug = exports.setFailed = exports.setCommandEcho = exports.setOutput = exports.getBooleanInput = exports.getMultilineInput = exports.getInput = exports.addPath = exports.setSecret = exports.exportVariable = exports.ExitCode = void 0;
-const command_1 = __nccwpck_require__(649);
-const file_command_1 = __nccwpck_require__(54);
-const utils_1 = __nccwpck_require__(69);
+const command_1 = __nccwpck_require__(585);
+const file_command_1 = __nccwpck_require__(936);
+const utils_1 = __nccwpck_require__(720);
 const os = __importStar(__nccwpck_require__(37));
 const path = __importStar(__nccwpck_require__(17));
-const oidc_utils_1 = __nccwpck_require__(50);
+const oidc_utils_1 = __nccwpck_require__(396);
 /**
  * The code to exit an action
  */
@@ -552,7 +550,7 @@ exports.getIDToken = getIDToken;
 
 /***/ }),
 
-/***/ 54:
+/***/ 936:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -583,7 +581,7 @@ exports.issueCommand = void 0;
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const fs = __importStar(__nccwpck_require__(147));
 const os = __importStar(__nccwpck_require__(37));
-const utils_1 = __nccwpck_require__(69);
+const utils_1 = __nccwpck_require__(720);
 function issueCommand(command, message) {
     const filePath = process.env[`GITHUB_${command}`];
     if (!filePath) {
@@ -601,7 +599,7 @@ exports.issueCommand = issueCommand;
 
 /***/ }),
 
-/***/ 50:
+/***/ 396:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -617,9 +615,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OidcClient = void 0;
-const http_client_1 = __nccwpck_require__(271);
-const auth_1 = __nccwpck_require__(174);
-const core_1 = __nccwpck_require__(810);
+const http_client_1 = __nccwpck_require__(786);
+const auth_1 = __nccwpck_require__(21);
+const core_1 = __nccwpck_require__(969);
 class OidcClient {
     static createHttpClient(allowRetry = true, maxRetry = 10) {
         const requestOptions = {
@@ -685,7 +683,7 @@ exports.OidcClient = OidcClient;
 
 /***/ }),
 
-/***/ 69:
+/***/ 720:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -732,7 +730,7 @@ exports.toCommandProperties = toCommandProperties;
 
 /***/ }),
 
-/***/ 235:
+/***/ 416:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -768,7 +766,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getExecOutput = exports.exec = void 0;
 const string_decoder_1 = __nccwpck_require__(576);
-const tr = __importStar(__nccwpck_require__(131));
+const tr = __importStar(__nccwpck_require__(415));
 /**
  * Exec a command.
  * Output will be streamed to the live console.
@@ -842,7 +840,7 @@ exports.getExecOutput = getExecOutput;
 
 /***/ }),
 
-/***/ 131:
+/***/ 415:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -881,8 +879,8 @@ const os = __importStar(__nccwpck_require__(37));
 const events = __importStar(__nccwpck_require__(361));
 const child = __importStar(__nccwpck_require__(81));
 const path = __importStar(__nccwpck_require__(17));
-const io = __importStar(__nccwpck_require__(913));
-const ioUtil = __importStar(__nccwpck_require__(39));
+const io = __importStar(__nccwpck_require__(466));
+const ioUtil = __importStar(__nccwpck_require__(365));
 const timers_1 = __nccwpck_require__(512);
 /* eslint-disable @typescript-eslint/unbound-method */
 const IS_WINDOWS = process.platform === 'win32';
@@ -1467,7 +1465,7 @@ class ExecState extends events.EventEmitter {
 
 /***/ }),
 
-/***/ 174:
+/***/ 21:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -1533,7 +1531,7 @@ exports.PersonalAccessTokenCredentialHandler = PersonalAccessTokenCredentialHand
 
 /***/ }),
 
-/***/ 271:
+/***/ 786:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -1541,7 +1539,7 @@ exports.PersonalAccessTokenCredentialHandler = PersonalAccessTokenCredentialHand
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const http = __nccwpck_require__(685);
 const https = __nccwpck_require__(687);
-const pm = __nccwpck_require__(919);
+const pm = __nccwpck_require__(614);
 let tunnel;
 var HttpCodes;
 (function (HttpCodes) {
@@ -1960,7 +1958,7 @@ class HttpClient {
         if (useProxy) {
             // If using proxy, need tunnel
             if (!tunnel) {
-                tunnel = __nccwpck_require__(264);
+                tunnel = __nccwpck_require__(757);
             }
             const agentOptions = {
                 maxSockets: maxSockets,
@@ -2078,7 +2076,7 @@ exports.HttpClient = HttpClient;
 
 /***/ }),
 
-/***/ 919:
+/***/ 614:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -2143,7 +2141,7 @@ exports.checkBypass = checkBypass;
 
 /***/ }),
 
-/***/ 39:
+/***/ 365:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -2327,7 +2325,7 @@ exports.getCmdPath = getCmdPath;
 
 /***/ }),
 
-/***/ 913:
+/***/ 466:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -2366,7 +2364,7 @@ const assert_1 = __nccwpck_require__(491);
 const childProcess = __importStar(__nccwpck_require__(81));
 const path = __importStar(__nccwpck_require__(17));
 const util_1 = __nccwpck_require__(837);
-const ioUtil = __importStar(__nccwpck_require__(39));
+const ioUtil = __importStar(__nccwpck_require__(365));
 const exec = util_1.promisify(childProcess.exec);
 const execFile = util_1.promisify(childProcess.execFile);
 /**
@@ -2675,15 +2673,15 @@ function copyFile(srcFile, destFile, force) {
 
 /***/ }),
 
-/***/ 264:
+/***/ 757:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-module.exports = __nccwpck_require__(985);
+module.exports = __nccwpck_require__(886);
 
 
 /***/ }),
 
-/***/ 985:
+/***/ 886:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -3101,7 +3099,7 @@ module.exports = require("util");
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __nccwpck_require__(561);
+/******/ 	var __webpack_exports__ = __nccwpck_require__(363);
 /******/ 	module.exports = __webpack_exports__;
 /******/ 	
 /******/ })()
