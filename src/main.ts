@@ -30,6 +30,17 @@ function extract(output: string): Result {
     }
 }
 
+function setActionOutput(name: string, value: string | number): void {
+    const ghOutput = process.env['GITHUB_OUTPUT']
+    if (ghOutput) {
+        fs.appendFileSync(ghOutput, `${name}=${value}\n`)
+    } else {
+        // Fallback for local testing
+        core.setOutput(name, value)
+    }
+}
+
+
 async function run(): Promise<void> {
     try {
         const image = core.getInput('image');
@@ -47,8 +58,6 @@ async function run(): Promise<void> {
         const runOptions = [
           '-e',
           'CI=true',
-          '-e',
-          'DOCKER_API_VERSION=1.37',
           '--rm',
           '-v',
           '/var/run/docker.sock:/var/run/docker.sock'
@@ -81,9 +90,9 @@ async function run(): Promise<void> {
         const exitCode = await exec.exec('docker', parameters, execOptions);
 
         let results = extract(output);
-        core.setOutput('efficiency', results.efficiency);
-        core.setOutput('wasted-bytes', results.wastedBytes);
-        core.setOutput('user-wasted-percent', results.userWastedPercent);
+        setActionOutput('efficiency', results.efficiency);
+        setActionOutput('wasted-bytes', results.wastedBytes);
+        setActionOutput('user-wasted-percent', results.userWastedPercent);
 
         if (exitCode === 0) {
             // success
