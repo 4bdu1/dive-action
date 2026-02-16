@@ -55,6 +55,15 @@ async function run(): Promise<void> {
 
         const dive = `wagoodman/dive:${tag}`;
 
+        let apiVersion = '';
+        const versionResult = await exec.getExecOutput(
+            'docker', ['version', '--format', '{{.Server.APIVersion}}'],
+            {silent: true, ignoreReturnCode: true}
+        );
+        if (versionResult.exitCode === 0 && versionResult.stdout.trim()) {
+            apiVersion = versionResult.stdout.trim();
+        }
+
         const runOptions = [
           '-e',
           'CI=true',
@@ -62,6 +71,10 @@ async function run(): Promise<void> {
           '-v',
           '/var/run/docker.sock:/var/run/docker.sock'
         ];
+
+        if (apiVersion) {
+            runOptions.push('-e', `DOCKER_API_VERSION=${apiVersion}`);
+        }
 
         const cmdOptions = [];
 
